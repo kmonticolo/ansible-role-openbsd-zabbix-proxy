@@ -1,0 +1,2 @@
+[ja]
+localhost ansible_python_interpreter=/usr/local/bin/python2.7

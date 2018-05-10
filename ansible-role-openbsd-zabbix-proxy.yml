@@ -1,0 +1,36 @@
+---
+- hosts: all
+  gather_facts: false
+  user: root
+
+  vars:
+    pkg_path: "https://ftp.icm.edu.pl/pub/OpenBSD/"
+    workstation_package_set:
+      - wget
+      - zabbix-agent
+      - nmap
+      - fping
+      - arping
+      - mariadb-server
+      - jdk
+      - javaPathHelper
+
+  tasks:
+  - name: install python
+    raw: pkg_add py-simplejson; ln -sf /usr/local/bin/python2.7 /usr/local/bin/python
+
+  - name: /etc/installurl
+    lineinfile:
+      dest=/etc/pkg.conf
+      backup=yes
+      line="{{ pkg_path }}"
+      state=present
+      create=True
+    become_method: doas
+    become: true
+
+  - name: install packages
+    openbsd_pkg: name={{ item }} state=present
+    with_items: "{{ workstation_package_set }}"
+    become_method: doas
+    become: true
