@@ -72,3 +72,5 @@ def test_zabbix_proxy_process_exists(host):
     process = host.process.filter(user="_zabbix", comm="zabbix_proxy")
     
 
+def test_zabbix_java_process_exists(host):
+    process = host.process.get(user="root", comm="java")
