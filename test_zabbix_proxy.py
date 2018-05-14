@@ -67,5 +67,8 @@ def test_zabbix_proxy_service_exists(host):
     assert service.is_running
     assert service.is_enabled
 
-
+# processes    
+def test_zabbix_proxy_process_exists(host):
+    process = host.process.filter(user="_zabbix", comm="zabbix_proxy")
+    
 
