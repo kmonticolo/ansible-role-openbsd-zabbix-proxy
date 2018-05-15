@@ -20,6 +20,12 @@ def test_zabbix_group_exists(Group):
     group = Group('_zabbix')
     assert group.exists
 
+def test_zabbix_proxy_file(host):
+    passwd = host.file("/usr/local/sbin/zabbix_proxy")
+    assert passwd.user == "root"
+    assert passwd.group == "wheel"
+    assert passwd.mode == 0o755
+
 def test_zabbix_agent_package_exists(host):
     package = host.package("zabbix-agent")
     assert package.is_installed
