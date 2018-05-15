@@ -108,6 +108,16 @@ def test_command_output(Command):
     assert command.stdout.rstrip() == 'PATH=$PATH:/usr/local/jdk-1.8.0/bin/ /usr/local/sbin/zabbix_java/startup.sh'
     assert command.rc == 0
 
+def test_zabbix_proxy_dot_conf(File):
+    zabbix_proxy_conf = File("/etc/zabbix/zabbix_proxy.conf")
+    assert zabbix_proxy_conf.user == "root"
+    assert zabbix_proxy_conf.group == "wheel"
+    assert zabbix_proxy_conf.mode == 0o755
+
+    assert zabbix_proxy_conf.contains("ListenPort=10051")
+    assert zabbix_proxy_conf.contains("DBHost=localhost")
+    assert zabbix_proxy_conf.contains("DebugLevel=3")
+
 def test_port_zabbix_agent_output(Command):
     command = Command('netstat -an|grep ^tcp.*\.10050.*LIST')
     assert command.rc == 0
