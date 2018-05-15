@@ -83,3 +83,15 @@ def test_command_output(Command):
     command = Command('grep startup.sh /etc/rc.local')
     assert command.stdout.rstrip() == 'PATH=$PATH:/usr/local/jdk-1.8.0/bin/ /usr/local/sbin/zabbix_java/startup.sh'
     assert command.rc == 0
+
+def test_port_zabbix_agent_output(Command):
+    command = Command('netstat -an|grep ^tcp.*\.10050.*LIST')
+    assert command.rc == 0
+
+def test_port_zabbix_proxy_output(Command):
+    command = Command('netstat -an|grep ^tcp.*\.10051.*LIST')
+    assert command.rc == 0
+
+def test_port_zabbix_java_proxy_output(Command):
+    command = Command('netstat -an|grep ^tcp.*\.10052.*LIST')
+    assert command.rc == 0
