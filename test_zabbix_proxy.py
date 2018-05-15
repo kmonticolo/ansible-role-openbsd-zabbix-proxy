@@ -21,10 +21,28 @@ def test_zabbix_group_exists(Group):
     assert group.exists
 
 def test_zabbix_proxy_file(host):
-    passwd = host.file("/usr/local/sbin/zabbix_proxy")
-    assert passwd.user == "root"
-    assert passwd.group == "wheel"
-    assert passwd.mode == 0o755
+    binary = host.file("/usr/local/sbin/zabbix_proxy")
+    assert binary.user == "root"
+    assert binary.group == "wheel"
+    assert binary.mode == 0o755
+
+def test_java_settings_file(host):
+    file = host.file("/usr/local/sbin/zabbix_java/settings.sh")
+    assert file.user == "root"
+    assert file.group == "wheel"
+    assert file.mode == 0o644
+
+def test_java_shutdown_file(host):
+    file = host.file("/usr/local/sbin/zabbix_java/shutdown.sh")
+    assert file.user == "root"
+    assert file.group == "wheel"
+    assert file.mode == 0o755
+
+def test_java_startup_file(host):
+    file = host.file("/usr/local/sbin/zabbix_java/startup.sh")
+    assert file.user == "root"
+    assert file.group == "wheel"
+    assert file.mode == 0o755
 
 def test_zabbix_agent_package_exists(host):
     package = host.package("zabbix-agent")
