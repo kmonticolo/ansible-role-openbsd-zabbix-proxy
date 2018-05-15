@@ -1,3 +1,8 @@
+def test_uname_output(Command):
+    command = Command('uname -s')
+    assert command.stdout.rstrip() == 'OpenBSD'
+    assert command.rc == 0
+
 def test_passwd_file(host):
     passwd = host.file("/etc/passwd")
     assert passwd.contains("root")
@@ -71,6 +76,10 @@ def test_zabbix_proxy_service_exists(host):
 def test_zabbix_proxy_process_exists(host):
     process = host.process.filter(user="_zabbix", comm="zabbix_proxy")
     
-
 def test_zabbix_java_process_exists(host):
     process = host.process.get(user="root", comm="java")
+
+def test_command_output(Command):
+    command = Command('grep startup.sh /etc/rc.local')
+    assert command.stdout.rstrip() == 'PATH=$PATH:/usr/local/jdk-1.8.0/bin/ /usr/local/sbin/zabbix_java/startup.sh'
+    assert command.rc == 0
