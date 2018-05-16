@@ -133,3 +133,7 @@ def test_port_zabbix_java_proxy_output(Command):
 def test_port_mysql_output(Command):
     command = Command('netstat -an|grep ^tcp.*127.0.0.1.3306.*LIST')
     assert command.rc == 0
+
+def test_command_ntpctl_output(Command):
+    command = Command('ntpctl -s status | grep "clock synced"')
+    assert command.rc == 0
