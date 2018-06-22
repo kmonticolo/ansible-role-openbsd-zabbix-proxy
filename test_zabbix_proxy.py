@@ -112,7 +112,7 @@ def test_zabbix_proxy_dot_conf(File):
     zabbix_proxy_conf = File("/etc/zabbix/zabbix_proxy.conf")
     assert zabbix_proxy_conf.user == "root"
     assert zabbix_proxy_conf.group == "wheel"
-    assert zabbix_proxy_conf.mode == 0o755
+    assert zabbix_proxy_conf.mode == 0o644
 
     assert zabbix_proxy_conf.contains("ListenPort=10051")
     assert zabbix_proxy_conf.contains("DBHost=localhost")
