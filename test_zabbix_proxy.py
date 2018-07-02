@@ -137,3 +137,24 @@ def test_port_mysql_output(Command):
 def test_command_ntpctl_output(Command):
     command = Command('ntpctl -s status | grep "clock synced"')
     assert command.rc == 0
+
+#sysctl
+def test_sysctl_semni(host):
+    sysctl = host.sysctl("kern.seminfo.semmni")
+    assert sysctl == 120
+
+def test_sysctl_semns(host):
+    sysctl = host.sysctl("kern.seminfo.semmns")
+    assert sysctl == 300
+
+def test_sysctl_semnu(host):
+    sysctl = host.sysctl("kern.seminfo.semmnu")
+    assert sysctl == 600
+
+def test_sysctl_semopm(host):
+    sysctl = host.sysctl("kern.seminfo.semopm")
+    assert sysctl == 300
+
+def test_sysctl_semmsl(host):
+    sysctl = host.sysctl("kern.seminfo.semmsl")
+    assert sysctl == 240
