@@ -10,14 +10,14 @@ def test_passwd_file(host):
     assert passwd.group == "wheel"
     assert passwd.mode == 0o644
 
-def test_zabbix_user_exists(User):
+def test_zabbix_user_exists(host):
     '''Check user exists'''
-    user = User('_zabbix')
+    user = host.user('_zabbix')
     assert user.exists
 
-def test_zabbix_group_exists(Group):
+def test_zabbix_group_exists(host):
     '''Check group exists'''
-    group = Group('_zabbix')
+    group = host.group('_zabbix')
     assert group.exists
 
 def test_zabbix_proxy_file(host):
@@ -110,8 +110,8 @@ def test_command_output(host):
     assert command.stdout.rstrip() == 'PATH=$PATH:/usr/local/jdk-1.8.0/bin/ /usr/local/sbin/zabbix_java/startup.sh'
     assert command.rc == 0
 
-def test_zabbix_proxy_dot_conf(File):
-    zabbix_proxy_conf = File("/etc/zabbix/zabbix_proxy.conf")
+def test_zabbix_proxy_dot_conf(host):
+    zabbix_proxy_conf = host.file("/etc/zabbix/zabbix_proxy.conf")
     assert zabbix_proxy_conf.user == "root"
     assert zabbix_proxy_conf.group == "wheel"
     assert zabbix_proxy_conf.mode == 0o644
