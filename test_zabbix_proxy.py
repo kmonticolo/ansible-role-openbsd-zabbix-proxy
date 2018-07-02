@@ -31,6 +31,8 @@ def test_java_settings_file(host):
     assert file.user == "root"
     assert file.group == "wheel"
     assert file.mode == 0o644
+    assert file.contains("^START_POLLERS=20")
+    assert file.contains("^PID_FILE=\"/tmp/zabbix_java.pid\"")
 
 def test_java_shutdown_file(host):
     file = host.file("/usr/local/sbin/zabbix_java/shutdown.sh")
