@@ -158,3 +158,11 @@ def test_sysctl_semopm(host):
 def test_sysctl_semmsl(host):
     sysctl = host.sysctl("kern.seminfo.semmsl")
     assert sysctl == 240
+
+def test_sysctl_file(host):
+    file = host.file("/etc/sysctl.conf")
+    assert file.contains("kern.seminfo.semmni=120")
+    assert file.contains("kern.seminfo.semmns=300")
+    assert file.contains("kern.seminfo.semmnu=600")
+    assert file.contains("kern.seminfo.semopm=300")
+    assert file.contains("kern.seminfo.semmsl=240")
