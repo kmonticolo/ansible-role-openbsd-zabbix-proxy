@@ -84,6 +84,9 @@ def test_mysql_service_exists(host):
     service = host.service("mysqld")
     assert service.is_running
     assert service.is_enabled
+    mysql = host.process.get(comm="mysqld")
+    assert mysql.user == "_mysql"
+    assert mysql.group == "_mysql"
 
 def test_ntpd_service_exists(host):
     service = host.service("ntpd")
