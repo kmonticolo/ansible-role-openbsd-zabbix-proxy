@@ -14,6 +14,10 @@ def test_zabbix_user_exists(host):
     '''Check user exists'''
     user = host.user('_zabbix')
     assert user.exists
+    assert user.name == "_zabbix"
+    assert user.group == "_zabbix"
+    assert user.shell == "/sbin/nologin"
+    assert user.home == "/nonexistent"
 
 def test_zabbix_group_exists(host):
     '''Check group exists'''
