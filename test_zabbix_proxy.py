@@ -99,15 +99,17 @@ def test_zabbix_agentd_service_exists(host):
     service = host.service("zabbix_agentd")
     assert service.is_running
     assert service.is_enabled
+    process = host.process.filter(user="_zabbix", group="_zabbix", comm="zabbix_agentd")
 
 def test_zabbix_proxy_service_exists(host):
     service = host.service("zabbix_proxy")
     assert service.is_running
     assert service.is_enabled
+    process = host.process.filter(comm="zabbix_proxy")
 
 # processes    
 def test_zabbix_proxy_process_exists(host):
-    process = host.process.filter(user="_zabbix", comm="zabbix_proxy")
+    process = host.process.filter(user="_zabbix", group="_zabbix", comm="zabbix_proxy")
     
 def test_zabbix_java_process_exists(host):
     process = host.process.get(user="root", comm="java")
