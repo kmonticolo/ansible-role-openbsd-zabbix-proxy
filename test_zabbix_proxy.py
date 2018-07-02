@@ -1,5 +1,5 @@
-def test_uname_output(Command):
-    command = Command('uname -s')
+def test_uname_output(host):
+    command = host.command('uname -s')
     assert command.stdout.rstrip() == 'OpenBSD'
     assert command.rc == 0
 
@@ -105,8 +105,8 @@ def test_zabbix_proxy_process_exists(host):
 def test_zabbix_java_process_exists(host):
     process = host.process.get(user="root", comm="java")
 
-def test_command_output(Command):
-    command = Command('grep startup.sh /etc/rc.local')
+def test_command_output(host):
+    command = host.command('grep startup.sh /etc/rc.local')
     assert command.stdout.rstrip() == 'PATH=$PATH:/usr/local/jdk-1.8.0/bin/ /usr/local/sbin/zabbix_java/startup.sh'
     assert command.rc == 0
 
@@ -120,24 +120,24 @@ def test_zabbix_proxy_dot_conf(File):
     assert zabbix_proxy_conf.contains("DBHost=localhost")
     assert zabbix_proxy_conf.contains("DebugLevel=3")
 
-def test_port_zabbix_agent_output(Command):
-    command = Command('netstat -an|grep ^tcp.*\.10050.*LIST')
+def test_port_zabbix_agent_output(host):
+    command = host.command('netstat -an|grep ^tcp.*\.10050.*LIST')
     assert command.rc == 0
 
-def test_port_zabbix_proxy_output(Command):
-    command = Command('netstat -an|grep ^tcp.*\.10051.*LIST')
+def test_port_zabbix_proxy_output(host):
+    command = host.command('netstat -an|grep ^tcp.*\.10051.*LIST')
     assert command.rc == 0
 
-def test_port_zabbix_java_proxy_output(Command):
-    command = Command('netstat -an|grep ^tcp.*\.10052.*LIST')
+def test_port_zabbix_java_proxy_output(host):
+    command = host.command('netstat -an|grep ^tcp.*\.10052.*LIST')
     assert command.rc == 0
 
-def test_port_mysql_output(Command):
-    command = Command('netstat -an|grep ^tcp.*127.0.0.1.3306.*LIST')
+def test_port_mysql_output(host):
+    command = host.command('netstat -an|grep ^tcp.*127.0.0.1.3306.*LIST')
     assert command.rc == 0
 
-def test_command_ntpctl_output(Command):
-    command = Command('ntpctl -s status | grep "clock synced"')
+def test_command_ntpctl_output(host):
+    command = host.command('ntpctl -s status | grep "clock synced"')
     assert command.rc == 0
 
 #sysctl
