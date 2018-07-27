@@ -151,16 +151,16 @@ def test_zabbix_proxy_dot_conf(host):
     assert zabbix_proxy_conf.contains("^LogSlowQueries=3000")
     assert zabbix_proxy_conf.contains("^User=_zabbix")
 
-def test_port_zabbix_agent_output(host):
+def test_port_zabbix_agent(host):
     assert host.socket("tcp://0.0.0.0:10050").is_listening
 
-def test_port_zabbix_agent_output(host):
+def test_port_zabbix_proxy(host):
     assert host.socket("tcp://0.0.0.0:10051").is_listening
 
-def test_port_zabbix_agent_output(host):
+def test_port_zabbix_java_proxy(host):
     assert host.socket("tcp://0.0.0.0:10052").is_listening
 
-def test_port_zabbix_agent_output(host):
+def test_port_zabbix_mysql(host):
     assert host.socket("tcp://127.0.0.1:3306").is_listening
 
 def test_command_ntpctl_output(host):
